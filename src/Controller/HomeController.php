@@ -2,9 +2,11 @@
 //le namespace permet d'identifier ma lase pour pouvoir l'appeller dans d'autres classes
 namespace App\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 //je crée une classe HomeController, qui correspond au nom du fichier, et qui me permet de regrouper des routes.
-    class HomeController{
+    class HomeController extends AbstractController {
         /**
          * @Route("/", name="home")
          *
@@ -12,8 +14,11 @@ use Symfony\Component\Routing\Annotation\Route;
          * annotation car il y a une classe avec un @ devant.
          * J'assoscie une url à ma route, et je lui associe aussi une méthode de controleur
          */
-        public function home(){
-            var_dump("Bienvenue sur la page d'accueil"); die;
+        public function home(Request $request){
+
+            $age = $request->query->get('age');
+            var_dump($age);die;
+            //var_dump("Bienvenue sur la page d'accueil"); die;
         }
 
         /**
@@ -28,8 +33,29 @@ use Symfony\Component\Routing\Annotation\Route;
          * @Route("/contact", name="contact")
          */
 
-        public function contact(){
-            var_dump("Welcome in contact page");die;
+        public function contact(Request $request){
+
+            $nom= $request->query->get('nom');
+            var_dump($nom);die;
+
+            //var_dump("Welcome in contact page");die;
+        }
+
+
+        /**
+         * @Route("/Poker", name="poker")
+         */
+
+        public function poker(Request $request){
+
+            $age= $request->query->get('age');
+
+            if($age<18){
+                var_dump(" tu as $age ans tu es donc mineur sorry not sorry");die;
+
+            }else {
+                var_dump("Tu as $age ans tu es validé par la street"); die;
+            }
         }
 
     }
